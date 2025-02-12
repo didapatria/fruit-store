@@ -16,12 +16,16 @@ class OrderFactory extends Factory
 
     public function definition(): array
     {
-        $customer = User::where('role', 'customer')->inRandomOrder()->first() ?? User::factory()->create(['role' => 'customer']);
-        $products = Product::inRandomOrder()->limit(rand(1, 5))->get();
+        $user = User::where('role', ['customer', 'vendor'])->inRandomOrder()->first() ?? User::factory()->create(['role' => ['customer', 'vendor']]);
+        $products = Product::where('user_id', '!=', $user->id)->inRandomOrder()->limit(rand(1, 5))->get();
+        if ($products->isEmpty()) {
+            $vendor = User::where('role', 'vendor')->where('id', '!=', $user->id)->inRandomOrder()->first() ?? User::factory()->create(['role' => 'vendor']);
+            $products = Product::factory()->count(rand(1, 5))->create(['user_id' => $vendor->id]);
+        }
         $total_price = $products->sum(fn($product) => $product->price * rand(1, 3));
 
         return [
-            'user_id' => $customer->id,
+            'user_id' => $user->id,
             'total_price' => $total_price,
             'status' => $this->faker->randomElement(['pending', 'completed', 'canceled']),
         ];

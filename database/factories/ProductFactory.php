@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,6 +16,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         static $usedCombinations = [];
+        $vendor = User::where('role', 'vendor')->inRandomOrder()->first() ?? User::factory()->create(['role' => 'vendor']);
         $fruits = [
             'Apple', 'Banana', 'Orange', 'Mango', 'Strawberry', 'Grapes', 'Watermelon', 'Pineapple', 'Papaya', 'Cherry',
             'Blueberry', 'Raspberry', 'Blackberry', 'Lemon', 'Lime', 'Peach', 'Plum', 'Apricot', 'Coconut', 'Avocado',
@@ -43,6 +45,7 @@ class ProductFactory extends Factory
         ];
 
         return [
+            'user_id' => $vendor->id,
             'name' => $productName,
             'description' => $this->faker->randomElement($descriptions),
             'price' => $this->faker->randomFloat(2, 1, 20),

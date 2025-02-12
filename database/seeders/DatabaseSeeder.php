@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Dida Patria',
             'email' => 'didapatria@sidiktalent.com',
-            'role' => 'vendor',
+            'role' => 'admin',
         ]);
 
         User::factory(10)->create();
