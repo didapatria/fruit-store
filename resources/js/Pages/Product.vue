@@ -45,20 +45,34 @@ const goBack = () => {
             v-if="isLoading"
             class="w-full max-w-lg animate-pulse rounded-lg bg-white p-6 shadow-lg"
         >
-            <div class="mb-4 h-10 w-24 rounded-md bg-gray-200"></div>
+            <div
+                class="mb-4 h-10 w-24 animate-pulse rounded-md bg-gray-200"
+            ></div>
 
-            <div class="h-8 w-3/4 rounded-md bg-gray-300"></div>
-            <div class="mt-2 h-6 w-full rounded-md bg-gray-200"></div>
+            <div class="h-8 w-3/4 animate-pulse rounded-md bg-gray-300"></div>
+            <div
+                class="mt-2 h-6 w-full animate-pulse rounded-md bg-gray-200"
+            ></div>
 
             <div class="mt-4">
-                <div class="h-6 w-1/4 rounded-md bg-gray-300"></div>
-                <div class="mt-2 h-6 w-1/6 rounded-md bg-gray-200"></div>
+                <div
+                    class="h-6 w-1/4 animate-pulse rounded-md bg-gray-300"
+                ></div>
+                <div
+                    class="mt-2 h-6 w-1/6 animate-pulse rounded-md bg-gray-200"
+                ></div>
             </div>
 
             <div class="mt-6">
-                <div class="h-6 w-1/3 rounded-md bg-gray-300"></div>
-                <div class="mt-2 h-6 w-1/4 rounded-md bg-gray-200"></div>
-                <div class="mt-2 h-6 w-1/2 rounded-md bg-gray-200"></div>
+                <div
+                    class="h-6 w-1/3 animate-pulse rounded-md bg-gray-300"
+                ></div>
+                <div
+                    class="mt-2 h-6 w-1/4 animate-pulse rounded-md bg-gray-200"
+                ></div>
+                <div
+                    class="mt-2 h-6 w-1/2 animate-pulse rounded-md bg-gray-200"
+                ></div>
             </div>
         </div>
         <div v-else class="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
