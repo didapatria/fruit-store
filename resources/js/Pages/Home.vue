@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PaginationLinks } from '@/types/Pagination';
 import type { Product } from '@/types/Product';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed, ref, watchEffect } from 'vue';
 
 const page = usePage();
@@ -35,6 +35,7 @@ const cleanLabel = (label: string) => {
 </script>
 
 <template>
+    <Head title="Home" />
     <div
         class="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-6"
     >
@@ -57,6 +58,9 @@ const cleanLabel = (label: string) => {
                         <th class="border border-gray-300 px-4 py-2 text-left">
                             Price
                         </th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">
+                            Actions
+                        </th>
                     </tr>
                 </thead>
 
@@ -71,6 +75,12 @@ const cleanLabel = (label: string) => {
                             <div
                                 class="h-6 animate-pulse rounded-md bg-gray-200"
                                 :style="{ width: getRandomWidth(80, 160) }"
+                            ></div>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            <div
+                                class="h-6 animate-pulse place-self-end rounded-md bg-gray-200"
+                                :style="{ width: getRandomWidth(30, 50) }"
                             ></div>
                         </td>
                         <td class="border border-gray-300 px-4 py-2">
@@ -103,6 +113,17 @@ const cleanLabel = (label: string) => {
                             class="border border-gray-300 px-4 py-2 text-right font-semibold text-green-600"
                         >
                             {{ '$ ' + product.price }}
+                        </td>
+                        <td
+                            class="border border-gray-300 px-4 py-2 text-center"
+                        >
+                            <Link
+                                :href="route('home.show', product.id)"
+                                class="rounded-md bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-900"
+                                as="button"
+                            >
+                                View
+                            </Link>
                         </td>
                     </tr>
                 </tbody>

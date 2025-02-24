@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
+import { Error } from '@/types/Error';
+import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const page = usePage();
 
 const errorMessage = computed(
-    () => page.props.th?.message || 'An unexpected error occurred.',
+    () => (page.props.th as Error)?.message || 'An unexpected error occurred.',
 );
-const status = computed(() => page.props.th?.status || 500);
+
+const status = computed(() => (page.props.th as Error)?.status || 500);
 </script>
 
 <template>
+    <Head title="Error" />
     <div
         class="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-6"
     >

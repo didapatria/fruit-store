@@ -17,4 +17,11 @@ class ProductService
             ->orderBy("id", CoreDatabaseEnum::DESC_ORDER->value)
             ->paginate((Int) CoreDatabaseEnum::PAGINATION_SIZE->value);
     }
+
+    public static function get(Int $id): ?Product
+    {
+        return Product::select(ProductDatabaseEnum::SELECTED_COLUMNS->value())
+            ->with(CoreRelationEnum::USER->value)
+            ->findOrFail($id);
+    }
 }
