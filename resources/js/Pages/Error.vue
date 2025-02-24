@@ -6,10 +6,11 @@ import { computed } from 'vue';
 const page = usePage();
 
 const errorMessage = computed(
-    () => (page.props.th as Error)?.message || 'An unexpected error occurred.',
+    () =>
+        (page.props.error as Error)?.message || 'An unexpected error occurred.',
 );
 
-const status = computed(() => (page.props.th as Error)?.status || 500);
+const status = computed(() => (page.props.error as Error)?.status || 500);
 </script>
 
 <template>

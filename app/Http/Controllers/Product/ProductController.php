@@ -26,7 +26,7 @@ class ProductController extends Controller
             return Inertia::render('Home', compact('products'));
         } catch (Throwable $th) {
             return Inertia::render('Error', [
-                'th' => [
+                'error' => [
                     'message' => $th->getMessage(),
                     'status' => $th instanceof HttpException ? $th->getStatusCode() : 500,
                 ]
@@ -40,7 +40,7 @@ class ProductController extends Controller
             $product = ProductService::get((Int) $id);
             if (!$product) {
                 return Inertia::render('Error', [
-                    'th' => [
+                    'error' => [
                         'message' => 'Product not found.',
                         'status' => 404,
                     ]
@@ -49,7 +49,7 @@ class ProductController extends Controller
             return Inertia::render('Product', compact('product'));
         } catch (Throwable $th) {
             return Inertia::render('Error', [
-                'th' => [
+                'error' => [
                     'message' => $th->getMessage(),
                     'status' => $th instanceof HttpException ? $th->getStatusCode() : 500,
                 ]
