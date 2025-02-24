@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -29,12 +31,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role' => $this->faker->randomElement(
-                array_merge(
-                    array_fill(0, 8, 'customer'),
-                    array_fill(0, 2, 'vendor'),
-                )
-            ),
         ];
     }
 
@@ -46,5 +42,38 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * Assign a random role after creating the user.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $roleName = fake()->randomElement(
+                array_merge(
+                    array_fill(0, 8, 'customer'),
+                    array_fill(0, 2, 'vendor'),
+                )
+            );
+
+            $role = Role::where('name', $roleName)->first();
+            if ($role) {
+                $user->assignRole($role);
+            }
+        });
+    }
+
+    /**
+     * Assign a role after creating the user.
+     */
+    public function withRole(string $roleName): static
+    {
+        return $this->afterCreating(function (User $user) use ($roleName) {
+            $role = Role::where('name', $roleName)->first();
+            if ($role) {
+                $user->assignRole($role);
+            }
+        });
     }
 }

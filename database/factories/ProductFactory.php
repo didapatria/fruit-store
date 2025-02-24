@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -16,7 +17,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         static $usedCombinations = [];
-        $vendor = User::where('role', 'vendor')->inRandomOrder()->first() ?? User::factory()->create(['role' => 'vendor']);
+        $vendor = Role::where('name', 'vendor')->first()?->users()->inRandomOrder()->first() ?? User::factory()->create()->assignRole('vendor');
         $fruits = [
             'Apple', 'Banana', 'Orange', 'Mango', 'Strawberry', 'Grapes', 'Watermelon', 'Pineapple', 'Papaya', 'Cherry',
             'Blueberry', 'Raspberry', 'Blackberry', 'Lemon', 'Lime', 'Peach', 'Plum', 'Apricot', 'Coconut', 'Avocado',

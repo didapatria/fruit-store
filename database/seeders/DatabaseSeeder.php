@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use Database\Seeders\Permission\AdminSeeder;
+use Database\Seeders\Permission\RoleSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,11 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Dida Patria',
-            'email' => 'didapatria@sidiktalent.com',
-            'role' => 'admin',
-        ]);
+        $this->call(RoleSeeder::class);
+        $this->call(AdminSeeder::class);
 
         User::factory(10)->create();
 
